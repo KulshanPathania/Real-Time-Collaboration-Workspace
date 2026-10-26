@@ -1,0 +1,473 @@
+.editor-page {
+  min-height: 100%;
+  background: #f7f9f6;
+  color: #253128;
+}
+
+/* Top navigation */
+.editor-topbar {
+  min-height: 68px;
+  padding: 12px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #e6ece5;
+  box-sizing: border-box;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 10px 13px;
+  background: #ffffff;
+  border: 1px solid #e3e9e2;
+  border-radius: 9px;
+  color: #465348;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.back-button:hover {
+  background: #f2f6f1;
+  border-color: #cbdaca;
+}
+
+.editor-document-label,
+.editor-save-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #627064;
+  font-size: 12px;
+}
+
+.editor-document-label svg {
+  color: #3e794c;
+  flex-shrink: 0;
+}
+
+/* Save controls */
+.editor-topbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.editor-save-status {
+  color: #347749;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.editor-save-status svg {
+  flex-shrink: 0;
+}
+
+.save-document-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 16px;
+  border: 1px solid #347749;
+  border-radius: 9px;
+  background: #347749;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.save-document-button:hover {
+  background: #28633b;
+  transform: translateY(-1px);
+}
+
+.save-document-button:active {
+  transform: translateY(0);
+}
+
+.save-document-button:focus-visible,
+.rename-document-button:focus-visible,
+.back-button:focus-visible {
+  outline: 2px solid #5d9567;
+  outline-offset: 3px;
+}
+
+/* Main content */
+.editor-main {
+  width: 100%;
+  max-width: 920px;
+  padding: 36px 25px 50px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Document title and rename button */
+.editor-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.editor-title-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.document-title-input {
+  width: 100%;
+  min-width: 0;
+  padding: 7px 0;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  outline: none;
+  background: transparent;
+  color: #253128;
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 29px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  box-sizing: border-box;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.document-title-input[readonly] {
+  cursor: default;
+}
+
+.document-title-input:not([readonly]) {
+  padding: 7px 10px;
+  border-color: #b8d2ba;
+  background: #ffffff;
+  cursor: text;
+}
+
+.document-title-input:focus {
+  outline: none;
+}
+
+.document-title-input:not([readonly]):focus {
+  border-color: #5d9567;
+  box-shadow: 0 0 0 3px rgba(93, 149, 103, 0.12);
+}
+
+.document-title-input::placeholder {
+  color: #9aa59b;
+  font-weight: 600;
+}
+
+.rename-document-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex-shrink: 0;
+  padding: 9px 12px;
+  border: 1px solid #dce7dc;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #347749;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.rename-document-button:hover {
+  background: #eff6ee;
+  border-color: #b8d2ba;
+}
+
+.document-type-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #788579;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+/* Editor paper */
+.editor-paper {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e4eae3;
+  border-radius: 13px;
+  box-shadow: 0 5px 22px rgba(34, 58, 36, 0.035);
+}
+
+/* Formatting toolbar */
+.editor-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  padding: 11px 14px;
+  background: #ffffff;
+  border-bottom: 1px solid #e9eee8;
+}
+
+.editor-tool {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: #59665b;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.editor-tool:hover:not(:disabled) {
+  background: #f1f5f0;
+}
+
+.editor-tool.tool-active {
+  background: #e5f0e5;
+  color: #27633a;
+  border-color: #d7e7d7;
+}
+
+.editor-tool:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.editor-tool:focus-visible {
+  outline: 2px solid #5d9567;
+  outline-offset: 2px;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 23px;
+  margin: 0 5px;
+  background: #e2e8e1;
+}
+
+/* Editable document area */
+.tiptap-content {
+  min-height: 430px;
+  padding: 36px 42px;
+  outline: none;
+  color: #344037;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+}
+
+.tiptap-content:focus {
+  outline: none;
+}
+
+.tiptap-content > *:first-child {
+  margin-top: 0;
+}
+
+/* Bold and italic */
+.editor-paper .tiptap-content strong,
+.editor-paper .tiptap-content strong *,
+.editor-paper .tiptap-content b,
+.editor-paper .tiptap-content b * {
+  font-weight: 700 !important;
+}
+
+.editor-paper .tiptap-content em,
+.editor-paper .tiptap-content em *,
+.editor-paper .tiptap-content i,
+.editor-paper .tiptap-content i * {
+  font-style: italic !important;
+}
+
+/* Headings */
+.tiptap-content h1,
+.tiptap-content h2,
+.tiptap-content h3 {
+  font-family: "Manrope", Arial, sans-serif;
+  color: #253128;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+}
+
+.tiptap-content h1 {
+  font-size: 30px;
+}
+
+.tiptap-content h2 {
+  font-size: 23px;
+}
+
+.tiptap-content h3 {
+  font-size: 19px;
+}
+
+/* Paragraphs */
+.tiptap-content p {
+  margin: 0 0 15px;
+}
+
+/* Lists */
+.tiptap-content ul,
+.tiptap-content ol {
+  padding-left: 25px;
+  margin: 12px 0 20px;
+}
+
+.tiptap-content li {
+  padding-left: 4px;
+}
+
+/* Blockquotes */
+.tiptap-content blockquote {
+  margin: 18px 0;
+  padding: 8px 18px;
+  border-left: 3px solid #5d9567;
+  background: #f5f8f3;
+  color: #657367;
+}
+
+.tiptap-content blockquote p {
+  margin: 0;
+}
+
+/* Word and character count */
+.editor-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 14px;
+  color: #627064;
+  font-size: 12px;
+}
+
+.editor-footer-note {
+  margin-top: 16px;
+  text-align: center;
+  color: #89948a;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* Responsive layout */
+@media (max-width: 700px) {
+  .editor-topbar {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+  }
+
+  .editor-main {
+    padding: 26px 16px 40px;
+  }
+
+  .editor-title-row {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .editor-title-controls {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .document-title-input {
+    font-size: 24px;
+  }
+
+  .document-type-label {
+    margin-left: auto;
+  }
+
+  .tiptap-content {
+    min-height: 350px;
+    padding: 25px 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .editor-topbar {
+    gap: 10px;
+  }
+
+  .editor-document-label {
+    display: none;
+  }
+
+  .editor-topbar-actions {
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .editor-save-status {
+    gap: 5px;
+    font-size: 10px;
+  }
+
+  .save-document-button {
+    padding: 9px 11px;
+  }
+
+  .editor-main {
+    padding: 22px 12px 35px;
+  }
+
+  .editor-toolbar {
+    gap: 2px;
+    padding: 8px;
+  }
+
+  .editor-tool {
+    width: 31px;
+    height: 31px;
+  }
+
+  .toolbar-divider {
+    margin: 0 3px;
+  }
+
+  .tiptap-content {
+    min-height: 320px;
+    padding: 22px 17px;
+    font-size: 14px;
+  }
+
+  .tiptap-content h1 {
+    font-size: 26px;
+  }
+
+  .tiptap-content h2 {
+    font-size: 21px;
+  }
+
+  .editor-stats {
+    gap: 14px;
+  }
+}
+
