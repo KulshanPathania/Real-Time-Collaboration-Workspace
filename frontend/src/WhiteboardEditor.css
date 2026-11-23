@@ -1,0 +1,254 @@
+.whiteboard-page {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 53px);
+  background: #f8fafc;
+}
+
+.whiteboard-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.wb-title-input {
+  flex: 1;
+  max-width: 420px;
+  padding: 6px 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+}
+
+.wb-title-input:hover,
+.wb-title-input:focus {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+  outline: none;
+}
+
+.wb-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.wb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1e293b;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.wb-btn:hover:not(:disabled) {
+  background: #e2e8f0;
+}
+
+.wb-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.wb-btn.wb-danger {
+  color: #b91c1c;
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.whiteboard-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.wb-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  font-size: 13px;
+  color: #334155;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.wb-tool-btn.active {
+  color: #ffffff;
+  background: #4f46e5;
+  border-color: #4f46e5;
+}
+
+.wb-divider {
+  width: 1px;
+  height: 22px;
+  background: #e2e8f0;
+  margin: 0 4px;
+}
+
+.wb-colors {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wb-color-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.wb-color-swatch.selected {
+  border-color: #0f172a;
+  transform: scale(1.12);
+}
+
+.whiteboard-stage {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background-color: #f8fafc;
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.whiteboard-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.wb-sticky-note {
+  position: absolute;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+  cursor: grab;
+  user-select: none;
+  z-index: 2;
+}
+
+.wb-sticky-note:active {
+  cursor: grabbing;
+}
+
+.wb-sticky-note.selected {
+  outline: 2px solid #2563eb;
+}
+
+.wb-note-text {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #1e293b;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.wb-note-textarea {
+  width: 100%;
+  min-height: 96px;
+  border: none;
+  background: transparent;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #0f172a;
+  outline: none;
+}
+.wb-presence-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wb-avatar-pill {
+  padding: 3px 9px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  border-radius: 999px;
+}
+
+.wb-sync-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+.wb-sync-badge.online {
+  color: #15803d;
+  background: #dcfce7;
+}
+
+.wb-sync-badge.offline {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+.wb-zoom-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wb-zoom-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  min-width: 40px;
+  text-align: center;
+}
+
+.wb-world-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.wb-world-layer .wb-sticky-note {
+  pointer-events: auto;
+}
+
+.wb-remote-cursor {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  transition: left 40ms linear, top 40ms linear;
+}
+
+.wb-cursor-label {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 7px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  border-radius: 4px;
+  white-space: nowrap;
+}

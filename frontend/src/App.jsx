@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import {
   FileText,
@@ -17,6 +16,7 @@ import {
 } from "lucide-react";
 
 import "./App.css";
+import WhiteboardEditor from "./WhiteboardEditor";
 import DocumentEditor from "./DocumentEditor";
 import AuthPage from "./AuthPage.jsx";
 
@@ -51,7 +51,7 @@ const DEFAULT_ITEMS = [
 // ORIGINAL WORKSPACE DASHBOARD
 // --------------------------------------------------
 
-function Workspace() {
+function Workspace({ user }) {
   const [items, setItems] = useState(() => {
     try {
       const savedItems = localStorage.getItem("workspace-items");
@@ -71,6 +71,7 @@ function Workspace() {
   });
 
   const [selectedDocument, setSelectedDocument] = useState(null);
+  const [selectedWhiteboard, setSelectedWhiteboard] = useState(null);
   const [activeTab, setActiveTab] = useState("All");
   const [search, setSearch] = useState("");
 
@@ -103,7 +104,7 @@ function Workspace() {
     if (type === "Document") {
       setSelectedDocument(newItem);
     } else {
-      alert("The whiteboard editor will be built in a later module.");
+      setSelectedWhiteboard(newItem);
     }
   };
 
@@ -135,6 +136,32 @@ function Workspace() {
           );
 
           setSelectedDocument((previous) =>
+            previous
+              ? { ...previous, title: newTitle }
+              : previous
+          );
+        }}
+      />
+    );
+  }
+
+  // Open the whiteboard editor.
+  if (selectedWhiteboard) {
+    return (
+      <WhiteboardEditor
+        document={selectedWhiteboard}
+        currentUser={user}
+        onBack={() => setSelectedWhiteboard(null)}
+        onTitleChange={(newTitle) => {
+          setItems((previous) =>
+            previous.map((item) =>
+              item.id === selectedWhiteboard.id
+                ? { ...item, title: newTitle }
+                : item
+            )
+          );
+
+          setSelectedWhiteboard((previous) =>
             previous
               ? { ...previous, title: newTitle }
               : previous
@@ -398,9 +425,7 @@ function Workspace() {
                     if (item.type === "Document") {
                       setSelectedDocument(item);
                     } else {
-                      alert(
-                        "The whiteboard editor will be built in a later module."
-                      );
+                      setSelectedWhiteboard(item);
                     }
                   }}
                   style={{ cursor: "pointer" }}
@@ -625,7 +650,7 @@ export default function App() {
         </div>
       )}
 
-      <Workspace />
+      <Workspace user={user} />
     </div>
   );
 }

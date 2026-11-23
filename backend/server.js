@@ -1,4 +1,8 @@
 import "dotenv/config";
+import http from "http";
+import * as Y from "yjs";
+import { attachCollabServer } from "./collabServer.js";
+import { Snapshot } from "./models/BoardState.js";
 import express from "express";
 import mongoose from "mongoose";
 import session from "express-session";
@@ -57,6 +61,26 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 
+app.get("/api/documents/:id/snapshots", async (req, res) => {
+  const snapshots = await Snapshot.find({ documentId: req.params.id })
+    .select("_id version label createdBy createdAt")
+    .sort({ version: -1 });
+  res.json({ snapshots });
+});
+
+app.post("/api/documents/:id/snapshots", async (req, res) => {
+  const latest = await Snapshot.findOne({ documentId: req.params.id }).sort({ version: -1 });
+  const version = (latest?.version || 0) + 1;
+  const snapshot = await Snapshot.create({
+    documentId: req.params.id,
+    state: latest?.state || Buffer.from(Y.encodeStateAsUpdate(new Y.Doc())),
+    version,
+    label: req.body?.label || `Manual Snapshot v${version}`,
+    createdBy: req.session?.userId || "user",
+  });
+  res.status(201).json({ snapshot });
+});
+
 app.use((err, req, res, next) => {
   console.error(err);
 
@@ -69,13 +93,16 @@ app.use((err, req, res, next) => {
   });
 });
 
+const server = http.createServer(app);
+attachCollabServer(server);
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Connected to MongoDB");
 
-    app.listen(PORT, () => {
-      console.log(`Backend running at http://localhost:${PORT}`);
+    server.listen(PORT, () => {
+      console.log(`Backend + WebSocket sync running at http://localhost:${PORT}`);
     });
   })
   .catch((error) => {
